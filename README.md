@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# Social Media App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## What should I do before coding?
+- desing api and defind the shape of the response datas (Including errors).
+- the relation between front-end and back-end such as the password or email pattern required for logging in or signing up.
 
-## Available Scripts
+## Material
+- Firebase API Endpoint
+	- api -> https://us-central1-social-media-app-a3e4f.cloudfunctions.net/api
 
-In the project directory, you can run:
+## Additional Resources
+- Authentication in Frontend Applications
+	- link: https://www.telerik.com/blogs/authentication-in-frontend-applications
 
-### `npm start`
+## Things to learn
+- Redux
+	- thunk, thunkAPI (createAsuncThunk)
+	- compose, store enhancer
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Lesson Learned
+- Importing components (`import { Link } from 'react-router-dom';` VS `import Link from 'react-router-dom/Link';`)
+	- The latter may give you a better performance because importing this way doesn't need to load the whole module.
+- Material UI -> https://material-ui.com
+- React JS
+	- to set up a base url -> set a `proxy` property's value to `<API BASE URL>`
+- To access locale language of the user
+	- `navigator.language` -> applied with -> `new Date().toLocaleString(navigator.language, { hour12: false })`
+- Library: `dayjs`
+	- Day.js is a minimalist JavaScript library that parses, validates, manipulates, and displays dates and times for modern browsers with a largely Moment.js-compatible API.
+- Importing modules
+	- Just only do the import tasks on the top of the file. If there is a block of code between the `import` statement, the error will be thrown.
+- React built-in module: `prop-types`
+	- `import PropTypes from 'prop-types'` -> use for checking props type.
+- `novalidate` attribute (`noValidate` in React.js)
+	- Indicate that the form is not to be validated on submit.
+- How to kill a process running on particular port in Linux?
+	- link: https://stackoverflow.com/questions/11583562/how-to-kill-a-process-running-on-particular-port-in-linux/32592965
+- Material UI
+	- `CircularProgress API`
+- Authorization: JWT
+	- need to check the signature to make sure that the payload has never been edited before.
+		- to generate a JWT -> generate and store 'kid or key id' in the header and then generate a 'password or secret key' for this 'kid' and then store in out secret database.
+		- when a user send the token to the server -> look at 'kid' and then get a secret key from it in our database to use it to verify a signature.
+- Serialization
+	- the process of converting an object into a stream of bytes to store the object or transmit it to memory, a database, or a file.
+- Redux
+	- Redux state doesn't remain after a page reload. `window.location.href = '/'` cause a page reload and it's not the correct way to programmatically navigate to another page when you use react-router. Instead of that you should use `this.props.history.push('/')`
