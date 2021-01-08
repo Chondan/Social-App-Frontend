@@ -30,7 +30,7 @@ const styles = {
 	}
 };
 
-let Scream = ({
+let ScreamList = ({
 	classes, scream
 }) => {
 	const { body, createdAt, userHandle, userImage } = scream;
@@ -45,6 +45,19 @@ let Scream = ({
 		</Card>
 	);
 }
-Scream = withStyles(styles)(Scream);
+ScreamList = withStyles(styles)(ScreamList);
+
+const Scream = ({
+	screams
+}) => {
+
+	const recentScreamsMarkup = screams ? (
+		screams.map(scream => <ScreamList key={scream.screamId} scream={scream} />)
+	) : <div>Loading...</div>;
+
+	return (
+		<div>{recentScreamsMarkup}</div>
+	);
+}
 
 export default Scream;

@@ -1,16 +1,3 @@
-const mockupErrors = {
-	response: {
-		data: {
-			errors: {
-				email: "EMAIL",
-				password: "PASSWORD",
-			},
-			error: "ERROR",
-			message: "MESSAGE"
-		}
-	}
-};
-
 const initialErrors = {
 	email: null,
 	password: null,

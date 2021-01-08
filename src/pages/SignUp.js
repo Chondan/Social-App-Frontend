@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import AppIcon from '../assets/images/favicon.png';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+
+// Components
+import { AnimationMessage } from '../components';
 
 // Hooks
 import useInput from '../hooks/useInput';
@@ -16,17 +18,21 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Utils
 import { styles } from '../utils/theme';
+import { initialErrors } from '../utils/error';
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 
 // Slices
-import { selectLoading, selectErrors } from '../redux/slices/uiSlice';
+import { selectLoading, selectErrors, setErrors } from '../redux/slices/uiSlice';
 import { fetchAction } from '../redux/slices/userSlice';
 
 let Signup = ({
 	classes
 }) => {
+	const history = useHistory();
+
+	// Custom Hooks
 	const { input: email, onInputChange: onEmailChange } = useInput('');
 	const { input: password, onInputChange: onPasswordChange } = useInput('');
 	const { input: confirmPassword, onInputChange: onConfirmPasswordChange } = useInput('');
@@ -37,17 +43,20 @@ let Signup = ({
 	const errors = useSelector(selectErrors);
 	const dispatch = useDispatch();
 
+	useEffect(() => {
+		dispatch(setErrors(initialErrors));
+	}, [dispatch]);
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(fetchAction('signup')({ email, password, confirmPassword, handle: userHandle }));
+		dispatch(fetchAction('signup')({ data: { email, password, confirmPassword, handle: userHandle }, history }));
 	}
 
 	return (
 		<Grid container className={classes.form}>
 			<Grid item sm></Grid>
 			<Grid item sm>
-				<img alt="App's icon" className={classes.image} src={AppIcon} />
-				<Typography variant="h2" className={classes.pageTitle}>Signup</Typography>
+				<AnimationMessage message="Get Started!!" />
 				<form noValidate onSubmit={handleSubmit}>
 					<TextField id="emai" name="email" type="email" label="Email" 
 						className={classes.textField} value={email} onChange={onEmailChange}

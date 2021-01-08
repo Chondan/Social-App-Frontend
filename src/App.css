@@ -14,7 +14,8 @@ html, body {
 }
 
 .nav-container {
-	margin: auto;
+	display: flex;
+	justify-content: space-between;
 }
 
 .home-page-area {
@@ -36,4 +37,66 @@ html, body {
 
 a {
 	text-decoration: none;
+}
+
+/*----- NAVBAR SLIDER -----*/
+.profile-icon {
+	width: 30px;
+	height: 30px;
+	color: transparent;
+	border-radius: 50%;
+}
+.profile-username {
+	cursor: pointer;
+	margin-left: 10px;
+	height: 100%;
+}
+.profile-username:hover {
+	color: orange;
+}
+.hilight {
+	border-bottom: 2px solid white;
+}
+.slider {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding: 5px;
+}
+.slider-menu {
+	color: inherit;
+	cursor: pointer;
+	margin-left: 15px;
+	width: 100%;
+	height: 100%;
+	transition-timing-function: ease;
+	transition-duration: 1.5s;
+	transition-property: width, opacity, margin-left;
+}
+.slider-menu:hover {
+	color: lightblue;
+}
+.hide {
+	margin-left: 0;
+	width: 0;
+	opacity: 0;
+	transition: all 1s ease;
+}
+.logout:hover {
+	color: red;
+}
+
+/* ----- MESSAGE ANIMATION ----- */
+.msg-animation {
+	display: flex;
+	justify-content: center;
+}
+.loader {
+	font-family: sans-serif;
+	font-size: xx-large;
+	color: #303030;
+}
+@keyframes loading {
+    0%, 40%, 100% { transform: scale(0); }
+    50% { transform: scale(2); }
 }

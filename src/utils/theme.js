@@ -21,6 +21,7 @@ const styles = {
 	},
 	pageTitle: {
 		margin: '10px auto 10px auto',
+		borderBottom: '2px solid black'
 	},
 	image: {
 		width: 100,

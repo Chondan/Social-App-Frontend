@@ -1,10 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// UI reducer types
-export const SET_ERRORS = "SET_ERRORS"; 
-export const LOADING_UI = "LOADING_UI"; // DONE
-export const CLEAR_ERROR = "CLEAR_ERROR";
-
 const uiSlice = createSlice({
 	name: "ui",
 	initialState: {
@@ -29,7 +24,7 @@ const uiSlice = createSlice({
 				});
 			},
 			prepare: (payload) => {
-				return { payload }; // { email, password, error, message }
+				return { payload }; // { email, password, handle, error, message }
 			}
 		},
 	}
