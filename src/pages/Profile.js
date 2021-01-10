@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
+import axios from 'axios';
 
 // Material UI
 import Grid from '@material-ui/core/Grid';
@@ -15,10 +16,9 @@ import CalendarToday from '@material-ui/icons/CalendarToday';
 import EditIcon from '@material-ui/icons/Edit';
 
 // Components
-import { Scream, EditDetails, MyButton } from '../components';
+import { Scream, EditDetails, MyButton, PostScream } from '../components';
 
 // Utils
-import { mockupScreams } from '../utils/mockupData';
 import { profileStyles as styles } from '../utils/theme';
 import { withClearErrors } from '../utils/error';
 
@@ -27,12 +27,15 @@ import { useSelector, useDispatch } from 'react-redux';
 
 // Slices
 import { selectUserData, fetchUploadImage } from '../redux/slices/userSlice';
+import { selectScreamsByUserHandle, fetchScreams } from '../redux/slices/screamSlice';
 
 let ProfileMarkup = ({
 	classes, isOwnProfile, userData
 }) => {
 
 	const dispatch = useDispatch();
+
+	if (!userData) return <div>Loading...</div>;
 
 	// const { credentials: { bio, imageUrl, website, location, handle }, createdAt } = useSelector(selectUserData);
 	const { credentials: { bio, imageUrl, website, location, handle }, createdAt } = userData;
@@ -90,42 +93,65 @@ let ProfileMarkup = ({
 					)}
 					<CalendarToday color="primary" />{' '}<span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
 				</div>
-				{isOwnProfile && <EditDetails />}
+				<div className="button-wrapper">
+					{isOwnProfile && <EditDetails />}
+					{isOwnProfile && <PostScream />}
+				</div>
 			</div>
 		</Paper>
 	);
 };
 ProfileMarkup = withStyles(styles)(ProfileMarkup);
 
-const mockupOtherUserData = {
-	credentials: {
-		bio: "Mockup bio",
-		website: "Mockup website",
-		location: "Mockup location",
-		imageUrl: `https://raw.githubusercontent.com/Chondan/Social-App/main/Assets/default-profile.png`,
-		handle: "chondan_example",
-	},
-	createdAt: "2021-01-05T09:59:08.884Z",
-}
-
 let Profile = ({
 	match
 }) => {
+	const dispatch = useDispatch();
 
-	const userData = useSelector(selectUserData);
+	const { handle: matchHandle } = match.params;
+	const userData= useSelector(selectUserData);
 	const { credentials: { handle } } = userData;
 	const isOwnProfile = (handle === match.params.handle);
 
+	// Get Screams
+	const displayScream = useSelector(selectScreamsByUserHandle(matchHandle));
+
 	// ----- FETCHING OTHER USER DETAILS -----
+	const [otherUserDetails, setOtherUserDetails] = useState(null);
+	useEffect(() => {
+		dispatch(fetchScreams());
+		if (isOwnProfile) return;
+
+		axios({ method: 'get', url: `/user/${matchHandle}` })
+		.then(res => {
+			const otherUserDetails = res.data;
+			const displayUserData = {
+				...otherUserDetails,
+				credentials: {
+					bio: otherUserDetails.bio,
+					imageUrl: otherUserDetails.imageUrl,
+					website: otherUserDetails.website,
+					location: otherUserDetails.location,
+					handle: otherUserDetails.handle,
+				},
+				createdAt: otherUserDetails.createdAt,
+			}
+			setOtherUserDetails(displayUserData);
+		})
+		// User Not Found 
+		.catch(err => console.log(err.response.data));
+
+	}, [isOwnProfile, dispatch, matchHandle]);
+
 
 	return (
 		<Grid container spacing={1} >
 			<Fragment>
-				<Grid item sm={true ? 4 : 12} xs={12}>
-					<ProfileMarkup isOwnProfile={isOwnProfile} userData={isOwnProfile ? userData : mockupOtherUserData} />
+				<Grid item sm={4} xs={12}>
+					<ProfileMarkup isOwnProfile={isOwnProfile} userData={isOwnProfile ? userData : otherUserDetails} />
 				</Grid>
 				<Grid item sm={8} xs={12}>
-					<Scream screams={mockupScreams} />
+					<Scream screams={displayScream} />
 				</Grid>
 			</Fragment>
 		</Grid>

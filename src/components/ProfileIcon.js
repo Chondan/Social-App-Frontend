@@ -4,14 +4,14 @@ import { useHistory } from 'react-router-dom';
 // Slices
 import { resetUserData } from '../redux/slices/userSlice';
 // Redux
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // Utils
-import { mockupUserData } from '../utils/mockupData';
 
 const ProfileIcon = ({
 	isAuthenticated
 }) => {
-	const { handle, imageUrl } = mockupUserData;
+	const userData = useSelector(state => state.user);
+	const { credentials: { handle, imageUrl } } = userData;
 
 	const [isShowSlider, setIsShowSlider] = useState(false);
 

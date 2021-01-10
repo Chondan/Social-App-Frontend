@@ -48,4 +48,8 @@
 	- Redux state doesn't remain after a page reload. `window.location.href = '/'` cause a page reload and it's not the correct way to programmatically navigate to another page when you use react-router. Instead of that you should use `this.props.history.push('/')`
 
 
-VIDEO: 8:03:41
+## TODOS
+- [ ] refresh scream at home page
+- [ ] update imageUrl of all screams after users chage their profile image
+
+VIDEO: 9:19:00

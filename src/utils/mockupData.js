@@ -18,4 +18,15 @@ const mockupUserData = {
 	userId: "5EVLFjqq6iOVGIV6BlfU9VY6SMI2"
 }
 
-export { mockupScreams, mockupUserData };
+const mockupOtherUserData = {
+	credentials: {
+		bio: "Mockup bio",
+		website: "Mockup website",
+		location: "Mockup location",
+		imageUrl: `https://raw.githubusercontent.com/Chondan/Social-App/main/Assets/default-profile.png`,
+		handle: "chondan_example",
+	},
+	createdAt: "2021-01-05T09:59:08.884Z",
+}
+
+export { mockupScreams, mockupUserData, mockupOtherUserData };

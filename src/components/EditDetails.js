@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useCallback } from 'react';
+import React, { Fragment, useEffect, useCallback } from 'react';
 //Material UI
 import withStyles from '@material-ui/core/styles/withStyles';
 // Utils 
@@ -9,6 +9,7 @@ import { fetchEditUserDetails } from '../redux/slices/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 // Hooks
 import useInput from '../hooks/useInput';
+import useDialog from '../hooks/useDialog';
 // Material UI
 import EditIcon from '@material-ui/icons/Edit';
 // Dialog
@@ -37,10 +38,11 @@ let EditDetails = ({
 
 	const dispatch = useDispatch();
 
+	// CUSTOM HOOKS
 	const { input: bio, onInputChange: onBioChange, setInput: setBio } = useInput();
 	const { input: website, onInputChange: onWebsiteChange, setInput: setWebsite } = useInput();
 	const { input: location, onInputChange: onLocationChange, setInput: setLocation } = useInput();
-	const [open, setOpen] = useState(false);
+	const { open: status, openDialog, closeDialog } = useDialog(false);
 
 	const credentials = useSelector(state => state.user.credentials);
 
@@ -56,15 +58,13 @@ let EditDetails = ({
 		mapGlobalStateToLocal();
 	}, [mapGlobalStateToLocal]);
 
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
 	const isSomethingChanged = () => {
 		const { bio: bioBefore, website: websiteBefore, location: locationBefore } = credentials;
 		if (bio === bioBefore && website === websiteBefore && location === locationBefore) return false;
 		return true;
 	}
 	const handleSubmit = () => {
-		setOpen(false);
+		closeDialog()
 
 		if (!isSomethingChanged()) return console.log("No Changes");
 		// Fetching to edit user's details
@@ -73,12 +73,10 @@ let EditDetails = ({
 
 	return (
 		<Fragment>
-			<div className="editDetails-buttonWrapper">
-				<MyButton tip="Edit details" tooltipPlacement="top" btnClassName={classes.button} onClick={handleOpen} >
-					<EditIcon color="primary" />
-				</MyButton>
-			</div>
-			<Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+			<MyButton tip="Edit details" tooltipPlacement="top" btnClassName={classes.button} onClick={openDialog} >
+				<EditIcon color="primary" />
+			</MyButton>
+			<Dialog open={status} onClose={closeDialog} fullWidth maxWidth="sm">
 				<DialogTitle>Edit your details</DialogTitle>
 				<DialogContent>
 					<form>
@@ -100,7 +98,7 @@ let EditDetails = ({
 					</form>
 				</DialogContent>
 				<DialogActions>
-					<Button color="primary" onClick={handleClose}>
+					<Button color="primary" onClick={closeDialog}>
 						Cancel
 					</Button>
 					<Button color="primary" onClick={handleSubmit}>

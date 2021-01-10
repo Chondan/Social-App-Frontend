@@ -5,3 +5,5 @@ export { default as AnimationMessage } from './AnimationMessage';
 export { default as ProfileIcon } from './ProfileIcon';
 export { default as EditDetails } from './EditDetails';
 export { default as MyButton } from './MyButton';
+export { default as DeleteScreamButton } from './DeleteScreamButton';
+export { default as PostScream } from './PostScream';

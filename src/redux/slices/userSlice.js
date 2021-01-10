@@ -11,19 +11,15 @@ import { getAuthorizationHeader } from '../../utils/auth';
 const fetchUserData = createAsyncThunk(
 	`user/fetchUserData`,
 	async (_, { getState, dispatch, rejectWithValue }) => {
-		dispatch(setLoading(true));
 		try {
 			if (!getState().user.loading && (getState().user.loaded && getState().user.authenticated)) {
 				console.log("Already loaded user's data");
-				dispatch(setLoading(false));
-				return { ...getState().user };
+				throw new Error("Already loaded user's data");
 			}
 			const responseForUserData = await axios({ method: 'get', url: `/user`, headers: { ...getAuthorizationHeader() } });
-			dispatch(setLoading(false));
 			return responseForUserData.data;
 		} catch (err) {
-			dispatch(setLoading(false));
-			return rejectWithValue(err.message);			
+			return rejectWithValue(err.message || err.response.data);			
 		}
 	}
 )
@@ -131,6 +127,13 @@ const userSlice = createSlice({
 			localStorage.removeItem("token");
 			console.log("LOGGED OUT");
 			return initialState;
+		},
+		updateLikes: (state, action) => {
+			const { userHandle, screamId } = action.payload;
+			state.likes.push({ userHandle, screamId });
+		},
+		updateUnlike: (state, action) => {
+			state.likes = state.likes.filter(like => like.screamId !== action.payload.screamId);
 		}
 	},
 	extraReducers: builder => {
@@ -154,6 +157,7 @@ const userSlice = createSlice({
 			state.loading = false;
 		})
 		.addCase(fetchUserData.rejected, (state, action) => {
+			state.loading = false;
 			return initialState;
 		})
 		.addCase(fetchUploadImage.pending, (state, action) => {
@@ -175,6 +179,6 @@ const userSlice = createSlice({
 const selectUserData = state => state.user;
 
 const { actions, reducer } = userSlice;
-export const { setUser, setAuthenticated, resetUserData } = actions;
+export const { setUser, setAuthenticated, resetUserData, updateLikes, updateUnlike } = actions;
 export default reducer;
 export { fetchAction, fetchUserData, selectUserData, fetchUploadImage, fetchEditUserDetails };
