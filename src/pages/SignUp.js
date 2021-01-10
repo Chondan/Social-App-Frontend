@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -18,13 +18,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Utils
 import { styles } from '../utils/theme';
-import { initialErrors } from '../utils/error';
+import { withClearErrors } from '../utils/error';
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 
 // Slices
-import { selectLoading, selectErrors, setErrors } from '../redux/slices/uiSlice';
+import { selectLoading, selectErrors } from '../redux/slices/uiSlice';
 import { fetchAction } from '../redux/slices/userSlice';
 
 let Signup = ({
@@ -42,10 +42,6 @@ let Signup = ({
 	const loading = useSelector(selectLoading);
 	const errors = useSelector(selectErrors);
 	const dispatch = useDispatch();
-
-	useEffect(() => {
-		dispatch(setErrors(initialErrors));
-	}, [dispatch]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -95,5 +91,6 @@ Signup.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
 Signup = withStyles(styles)(Signup);
+Signup = withClearErrors(Signup); // Enhanced component
 
 export default Signup;

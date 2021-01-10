@@ -19,7 +19,7 @@ const App = () => {
 						<AuthRoute exact path='/' component={Home} />
 						<AuthRoute exact path='/login' component={Login} />
 						<AuthRoute exact path='/signup' component={SignUp} />
-						<AuthRoute exact path='/profile' component={Profile} />
+						<AuthRoute exact path='/users/:handle' component={Profile} />
 					</Switch>
 				</div>
 			</Router>

@@ -7,7 +7,7 @@ const useInput = (initialValue) => {
 		setInput(e.target.value);
 	}
 
-	return { input, onInputChange };
+	return { input, onInputChange, setInput };
 }
 
 export default useInput;

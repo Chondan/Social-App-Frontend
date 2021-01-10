@@ -37,6 +37,7 @@
 	- link: https://stackoverflow.com/questions/11583562/how-to-kill-a-process-running-on-particular-port-in-linux/32592965
 - Material UI
 	- `CircularProgress API`
+	- Material UI Icons
 - Authorization: JWT
 	- need to check the signature to make sure that the payload has never been edited before.
 		- to generate a JWT -> generate and store 'kid or key id' in the header and then generate a 'password or secret key' for this 'kid' and then store in out secret database.
@@ -45,3 +46,6 @@
 	- the process of converting an object into a stream of bytes to store the object or transmit it to memory, a database, or a file.
 - Redux
 	- Redux state doesn't remain after a page reload. `window.location.href = '/'` cause a page reload and it's not the correct way to programmatically navigate to another page when you use react-router. Instead of that you should use `this.props.history.push('/')`
+
+
+VIDEO: 8:03:41

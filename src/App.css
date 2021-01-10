@@ -17,6 +17,9 @@ html, body {
 	display: flex;
 	justify-content: space-between;
 }
+.nav-container svg {
+	color: #fff;
+}
 
 .home-page-area {
 	display: flex;
@@ -45,6 +48,16 @@ a {
 	height: 30px;
 	color: transparent;
 	border-radius: 50%;
+	position: relative;
+}
+.notifications {
+	color: #303030 !important;
+	background-color: rgb(245, 245, 245);
+	color: #303030;
+	padding: 5px 40px 5px 40px;
+	opacity: 0.6;
+	border-radius: 10px;
+	font-size: small;
 }
 .profile-username {
 	cursor: pointer;
@@ -77,6 +90,7 @@ a {
 	color: lightblue;
 }
 .hide {
+	padding: 0;
 	margin-left: 0;
 	width: 0;
 	opacity: 0;
@@ -99,4 +113,13 @@ a {
 @keyframes loading {
     0%, 40%, 100% { transform: scale(0); }
     50% { transform: scale(2); }
+}
+
+@keyframes blink {
+	to { opacity: 0; }
+}
+
+.editDetails-buttonWrapper {
+	display: flex;
+	justify-content: center;
 }
