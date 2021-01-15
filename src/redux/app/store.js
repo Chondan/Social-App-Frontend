@@ -7,6 +7,6 @@ export default configureStore({
 	reducer: {
 		ui: uiReducer,
 		user: userReducer,
-		screams: screamReducer
+		screams: screamReducer,
 	}
 });

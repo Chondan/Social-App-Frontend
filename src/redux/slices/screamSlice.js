@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Slices 
 import { updateLikes, updateUnlike } from './userSlice';
-import { setLoading, setErrors } from './uiSlice';
+import { setLoading as setLoadingUI, setErrors } from './uiSlice';
 
 // Utils
 import { getAuthorizationHeader } from '../../utils/auth';
@@ -83,12 +83,12 @@ const fetchDeleteScream = createAsyncThunk(
 const fetchPostScream = createAsyncThunk(
 	`scream/fetchPostScream`,
 	async (body, { dispatch, rejectWithValue }) => {
-		dispatch(setLoading(true));
+		dispatch(setLoadingUI(true));
 		dispatch(setErrors(initialErrors));
 		try {
 
 			if (!body) {
-				dispatch(setLoading(false));
+				dispatch(setLoadingUI(false));
 				dispatch(setErrors({ message: "Cannot post an empty scream" }));
 				return rejectWithValue({ message: "Cannot post an empty scream" });
 			}
@@ -96,14 +96,14 @@ const fetchPostScream = createAsyncThunk(
 			const response = await axios({ method: 'post', url: `/scream`, data: { body }, headers: { ...getAuthorizationHeader() } });
 
 			// Update UI State
-			dispatch(setLoading(false));
+			dispatch(setLoadingUI(false));
 			dispatch(setErrors(initialErrors));
 
 			return response.data;
 		} catch(err) {
 
 			// Update UI State
-			dispatch(setLoading(false));
+			dispatch(setLoadingUI(false));
 			dispatch(setErrors(getFormatErrors(err)));
 
 			return rejectWithValue(getFormatErrors(err));
@@ -112,12 +112,15 @@ const fetchPostScream = createAsyncThunk(
 )
 
 const screamSlice = createSlice({
-	name: 'scream',
+	name: 'screams',
 	initialState,
 	reducers: {
 		setLoading: (state, action) => {
 			state.loading = action.payload;
 		},
+		updateComment: (state, action) => {
+			state.entities[action.payload].commentCount += 1;
+		}
 	},
 	extraReducers: builder => {
 		builder
@@ -161,14 +164,16 @@ const screamSlice = createSlice({
 	}
 });
 
-const { reducer } = screamSlice;
+const { actions, reducer } = screamSlice;
 // Reducer
 export default reducer;
 // Actions
+export const { updateComment } = actions;
 export { fetchScreams, fetchLikeScream, fetchUnlikeScream, fetchDeleteScream, fetchPostScream };
 // Selectors
 export const {
 	selectAll: selectScreams,
+	selectById: selectScreamById
 } = screamsAdapter.getSelectors(state => state.screams);
 export const selectScreamsByUserHandle = (userHandle) => {
 	return createSelector(

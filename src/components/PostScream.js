@@ -41,7 +41,7 @@ const styles = {
 	}
 }
 
-let EditDetails = ({
+let PostScream = ({
 	classes
 }) => {
 
@@ -79,7 +79,7 @@ let EditDetails = ({
 				<DialogContent>
 					<form>
 						<TextField name="scream" type="text" label="Scream" multiline 
-							rows="10" placeholder="What are you thinking about?"
+							rows="10" placeholder="..."
 							className={classes.textField} value={scream} 
 							onChange={onScreamChange} fullWidth error={uiErrors.message ? true : false}
 							helperText={uiErrors.message}
@@ -99,6 +99,6 @@ let EditDetails = ({
 		</Fragment>
 	);
 }
-EditDetails = withStyles(styles)(EditDetails);
+PostScream = withStyles(styles)(PostScream);
 
-export default EditDetails;
+export default PostScream;

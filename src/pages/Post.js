@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import axios from 'axios';
 
 // Material UI stuff
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -13,12 +14,10 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 // Components
-import MyButton from './MyButton';
-import DeleteScreamButton from './DeleteScreamButton';
-import CommentDialog from './CommentDialog';
+import { CommentDialog, DeleteScreamButton, MyButton } from '../components';
 
 // Slices
-import { fetchLikeScream, fetchUnlikeScream } from '../redux/slices/screamSlice';
+import { fetchLikeScream, fetchUnlikeScream, selectScreamById } from '../redux/slices/screamSlice';
 
 // Redux 
 import { useDispatch, useSelector } from 'react-redux';
@@ -70,13 +69,12 @@ let ScreamList = ({
 					<Link to={`/users/${userHandle}`} ><img className="scream-profile-icon" src={userImage} alt="user profile" /></Link>
 					<div>
 						<Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="primary">{userHandle}</Typography>
-						<Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
+						<Typography variant="body2" color="textSecondary">{dayjs(createdAt).format('DD MMMM YYYY HH:mm:ss')}</Typography>
 					</div>
 				</div>
 				<Typography variant="body1">{body}</Typography>
-				<div><Link to={`/scream/${screamId}`}>See Post</Link></div>
 				{likeButton}<span>{likeCount} Likes</span>
-				<CommentDialog scream={scream} maxHeight={400} />
+				<CommentDialog scream={scream} maxHeight='60vh' />
 				{deleteButton}
 			</CardContent>
 		</Card>
@@ -84,19 +82,41 @@ let ScreamList = ({
 }
 ScreamList = withStyles(styles)(ScreamList);
 
-const Scream = ({
-	screams
+const Post = ({
+	match
 }) => {
+	const { screamId } = match.params;
+	const [scream, setScream] = useState();
+	const [loading, setLoading] = useState(true);
+	const isScreamLoaded = useSelector(state => state.screams.loaded);
 
-	const isScreamLoading = useSelector(state => state.screams.loading);
+	const loadedScream = useSelector(state => selectScreamById(state, screamId));
 
-	const recentScreamsMarkup = !isScreamLoading ? (
-		screams.map(scream => <ScreamList key={scream.screamId} scream={scream} />)
-	) : <div>Loading...</div>;
-
+	useEffect(() => {
+		if (isScreamLoaded) return console.log("Scream is already loaded");
+		setLoading(true);
+		axios({ method: 'get', url: `/scream/${screamId}` })
+		.then(res => res.data)
+		.then(data => {
+			setScream(data);
+			setLoading(false);
+		})
+		.catch(err => {
+			setScream(null);
+			setLoading(false);
+		})
+	}, [isScreamLoaded, screamId]);
+ 
 	return (
-		<div>{recentScreamsMarkup}</div>
+		<Fragment>
+			{ 	
+				isScreamLoaded ? <ScreamList scream={loadedScream} /> :
+				loading ? <div>Loading...</div> : 
+				scream === null ? <div>Scream not found</div> : 
+				<ScreamList scream={scream} />
+			}
+		</Fragment>
 	);
 }
 
-export default Scream;
+export default Post;

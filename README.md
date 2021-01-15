@@ -50,6 +50,6 @@
 
 ## TODOS
 - [ ] refresh scream at home page
-- [ ] update imageUrl of all screams after users chage their profile image
+- [ ] update imageUrl of all screams after users chage their profile image (need to fix the api to make it send the imageUrl back to the client)
 
 VIDEO: 9:19:00

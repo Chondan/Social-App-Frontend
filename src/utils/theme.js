@@ -97,4 +97,77 @@ const profileStyles = {
 	}
 };
 
-export { theme, styles, profileStyles };
+const commentStyles = {
+	card: {
+		marginBottom: 5,
+		position: "relative",
+	},
+	content: {
+		width: "100%",
+		padding: 10,
+		paddingBottom: '0 !important'
+	},
+	commentList: {
+		margin: 0,
+		padding: 0,
+		overflow: 'auto'
+	},
+	comment: {
+		listStyle: "none",
+	},
+	commentListWrapper: {
+		width: '100%',
+		height: 0,
+		opacity: 0,
+		transition: 'all 0.2s ease',
+		padding: 0,
+	},
+	commentBoxWrapper: {
+		display: 'flex',
+		width: '100%'
+	},
+	commentBox: {
+		width: '100%',
+		display: 'flex',
+		alignItems: 'end',
+		padding: 5
+	},
+	commentUserProfile: {
+		width: '10%'
+	},
+	commentInput: {
+		width: '100%',
+	},
+	show: {
+		height: '100%',
+		transition: 'all 0.5s ease',
+		opacity: 1,
+		padding: 15
+	},
+	commentProfileIcon: {
+		width: 30,
+		height: 30
+	},
+	block: {
+		display: 'block',
+		position: 'absolute',
+	},
+}
+
+const screamStyles = {
+	card: {
+		marginBottom: 10,
+		position: "relative",
+	},
+	image: {
+		width: "30%",
+		maxWidth: 150,
+		backgroundSize: "cover",
+	},
+	content: {
+		width: "100%",
+		padding: '15px !important',
+	}
+};
+
+export { theme, styles, profileStyles, commentStyles, screamStyles };

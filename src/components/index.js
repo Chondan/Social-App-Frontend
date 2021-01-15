@@ -7,3 +7,4 @@ export { default as EditDetails } from './EditDetails';
 export { default as MyButton } from './MyButton';
 export { default as DeleteScreamButton } from './DeleteScreamButton';
 export { default as PostScream } from './PostScream';
+export { default as CommentDialog } from './CommentDialog';
