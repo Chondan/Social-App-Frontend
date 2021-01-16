@@ -51,5 +51,8 @@
 ## TODOS
 - [ ] refresh scream at home page
 - [ ] update imageUrl of all screams after users chage their profile image (need to fix the api to make it send the imageUrl back to the client)
+- [ ] center the text of notifications badge
+- [ ] fixed the display of notifications on mobile view
+- [ ] fixed a problem when deleted a scream on its own post
 
 VIDEO: 9:19:00

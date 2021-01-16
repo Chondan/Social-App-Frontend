@@ -50,6 +50,7 @@ a {
 	color: transparent;
 	border-radius: 50%;
 	position: relative;
+	cursor: pointer;
 }
 .notifications {
 	color: #303030 !important;
@@ -140,3 +141,29 @@ a {
 	align-items: center;
 	margin-bottom: 5px;
 }
+
+/* ----- SCROLL BAR CUSTOMIZE ----- */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+  /* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+  /* Handle */
+::-webkit-scrollbar-thumb {
+background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #555; 
+}
+
+/*.notificationsBar {
+	right: -500% !important;
+	top: 120% !important;
+	transition: all 1s ease;
+}*/

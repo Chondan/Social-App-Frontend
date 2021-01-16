@@ -3,12 +3,10 @@ import { Link } from 'react-router-dom';
 
 // Components
 import { ProfileIcon } from './';
+
 // Material UI stuff
 import { AppBar, Toolbar, Button  } from '@material-ui/core';
-// Material UI
-// import AddIcon from '@material-ui/icons/Add';
-// import HomeIcon from '@material-ui/icons/Home';
-// import Notifications from '@material-ui/icons/Notifications';
+
 // Redux
 import { useSelector } from 'react-redux';
 

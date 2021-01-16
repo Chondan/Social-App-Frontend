@@ -14,7 +14,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 // Components
-import { CommentDialog, DeleteScreamButton, MyButton } from '../components';
+import { CommentDialog, DeleteScreamButton, MyButton, ScreamLoadingSkeleton } from '../components';
 
 // Slices
 import { fetchLikeScream, fetchUnlikeScream, selectScreamById } from '../redux/slices/screamSlice';
@@ -111,7 +111,7 @@ const Post = ({
 		<Fragment>
 			{ 	
 				isScreamLoaded ? <ScreamList scream={loadedScream} /> :
-				loading ? <div>Loading...</div> : 
+				loading ? <ScreamLoadingSkeleton piece={1} /> : 
 				scream === null ? <div>Scream not found</div> : 
 				<ScreamList scream={scream} />
 			}

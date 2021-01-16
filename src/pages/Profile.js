@@ -16,7 +16,7 @@ import CalendarToday from '@material-ui/icons/CalendarToday';
 import EditIcon from '@material-ui/icons/Edit';
 
 // Components
-import { Scream, EditDetails, MyButton, PostScream } from '../components';
+import { Scream, EditDetails, MyButton, PostScream, ProfileLoadingSkeleton } from '../components';
 
 // Utils
 import { profileStyles as styles } from '../utils/theme';
@@ -35,7 +35,8 @@ let ProfileMarkup = ({
 
 	const dispatch = useDispatch();
 
-	if (!userData) return <div>Loading...</div>;
+	// return <ProfileLoadingSkeleton isOwnProfile={isOwnProfile} />;
+	if (!userData) return <ProfileLoadingSkeleton isOwnProfile={isOwnProfile} />;
 
 	// const { credentials: { bio, imageUrl, website, location, handle }, createdAt } = useSelector(selectUserData);
 	const { credentials: { bio, imageUrl, website, location, handle }, createdAt } = userData;

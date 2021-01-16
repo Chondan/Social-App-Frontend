@@ -8,14 +8,12 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-// Icons
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 // Components
-import MyButton from './MyButton';
 import DeleteScreamButton from './DeleteScreamButton';
 import CommentDialog from './CommentDialog';
+import ScreamLoadingSkeleton from './loadingSkeletons/ScreamLoadingSkeleton';
+import LikeButton from './LikeButton';
 
 // Slices
 import { fetchLikeScream, fetchUnlikeScream } from '../redux/slices/screamSlice';
@@ -42,23 +40,6 @@ let ScreamList = ({
 	const { likes, authenticated, credentials: { handle } } = userData;
 	const likedScream = likes && likes.some(like => like.screamId === screamId);
 
-	const likeButton = !authenticated ? (
-		<MyButton tip="like">
-			<Link to='/login'>
-				<FavoriteBorder color="primary" />
-			</Link>
-		</MyButton>
-	) : (
-		likedScream ? (
-			<MyButton tip="Unlike" onClick={() => handleUnlikeScream(screamId)}>
-				<FavoriteIcon color="primary" />
-			</MyButton>
-		) : (
-			<MyButton tip="like" onClick={() => handleLikeScream(screamId)}>
-				<FavoriteBorder color="primary" />
-			</MyButton>
-		)
-	);
 	const deleteButton = authenticated && (userHandle === handle) ? (
 		<DeleteScreamButton screamId={screamId} />
 	) : null;
@@ -75,7 +56,8 @@ let ScreamList = ({
 				</div>
 				<Typography variant="body1">{body}</Typography>
 				<div><Link to={`/scream/${screamId}`}>See Post</Link></div>
-				{likeButton}<span>{likeCount} Likes</span>
+				<LikeButton authenticated={authenticated} likedScream={likedScream} handleLike={() => handleLikeScream(screamId)} handleUnlike={() => handleUnlikeScream(screamId)} />
+				<span>{likeCount} Likes</span>
 				<CommentDialog scream={scream} maxHeight={400} />
 				{deleteButton}
 			</CardContent>
@@ -92,7 +74,7 @@ const Scream = ({
 
 	const recentScreamsMarkup = !isScreamLoading ? (
 		screams.map(scream => <ScreamList key={scream.screamId} scream={scream} />)
-	) : <div>Loading...</div>;
+	) : <ScreamLoadingSkeleton piece={10} />;
 
 	return (
 		<div>{recentScreamsMarkup}</div>

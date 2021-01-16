@@ -7,6 +7,7 @@ import axios from 'axios';
 
 // Components
 import MyButton from './MyButton';
+import CommentLoadingSkeleton from './loadingSkeletons/CommentLoadingSkeleton';
 
 // Material UI
 import ChatIcon from '@material-ui/icons/Chat';
@@ -121,7 +122,7 @@ let CommentDialog = ({
 			<span>{commentCount} Comments</span>
 			<div className={classNames(classes.commentListWrapper, open ? classes.show : '')}>
 				<ul className={classes.commentList} style={{ maxHeight: maxHeight }}>
-					{loading ? <div>Loading...</div> : 
+					{loading ? <CommentLoadingSkeleton piece={2} /> : 
 						comments.length === 0 ? <div>No comments</div> :
 						comments.map(comment => (
 							<Comment key={nanoid()} comment={comment} />
