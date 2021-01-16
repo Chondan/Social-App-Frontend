@@ -82,3 +82,4 @@ const Scream = ({
 }
 
 export default Scream;
+export { ScreamList };

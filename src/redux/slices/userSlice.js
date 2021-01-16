@@ -134,6 +134,10 @@ const userSlice = createSlice({
 		},
 		updateUnlike: (state, action) => {
 			state.likes = state.likes.filter(like => like.screamId !== action.payload.screamId);
+		},
+		markNotificationAsRead: (state, action) => {
+			const notification = state.notifications.find(notification => notification.notificationId === action.payload);
+			notification.read = true;
 		}
 	},
 	extraReducers: builder => {
@@ -179,6 +183,6 @@ const userSlice = createSlice({
 const selectUserData = state => state.user;
 
 const { actions, reducer } = userSlice;
-export const { setUser, setAuthenticated, resetUserData, updateLikes, updateUnlike } = actions;
+export const { setUser, setAuthenticated, resetUserData, updateLikes, updateUnlike, markNotificationAsRead } = actions;
 export default reducer;
 export { fetchAction, fetchUserData, selectUserData, fetchUploadImage, fetchEditUserDetails };

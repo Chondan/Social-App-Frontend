@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { useLocation } from 'react-router-dom';
 
 // Components
 import MyButton from './MyButton';
@@ -33,11 +34,13 @@ let DeleteScreamButton = ({
 	screamId, classes
 }) => {
 
+	const location = useLocation();
 	const dispatch = useDispatch();
 
 	const { open: status, openDialog, closeDialog  } = useDialog(false);
 	const handleDeleteScream = (id) => {
-		dispatch(fetchDeleteScream(id));
+		const needToReload = location.pathname === `/scream/${screamId}` ? true : false;
+		dispatch(fetchDeleteScream({ screamId: id, needToReload }));
 		closeDialog();
 	}
 

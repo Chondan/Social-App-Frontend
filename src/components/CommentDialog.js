@@ -97,6 +97,7 @@ let CommentDialog = ({
 
 	const addComment = () => {
 
+		// Add comment
 		if (!input) return inputRef.current.focus();
 		setAddCommentLoading(true);
 		axios({ method: 'post', url: `/scream/${screamId}/comment`, headers: { ...getAuthorizationHeader() }, data: { body: input } })

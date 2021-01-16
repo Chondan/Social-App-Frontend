@@ -17,15 +17,15 @@ const AuthRoute = ({
 
 	// Redux
 	const dispatch = useDispatch();
-	const state = useSelector(state => state);
+	// const state = useSelector(state => state);
 	const { loaded: isLoadedUserData, authenticated: isAuthenticated } = useSelector(state => state.user);
-	console.log(state);
+	// console.log(state);
 
 	useEffect(() => {
 		isAuthorised() ? dispatch(fetchUserData()) : dispatch(resetUserData());
 
-		console.log("isAuthenticated: ", isAuthenticated);
-		console.log("isLoadedUserData: ", isLoadedUserData);
+		// console.log("isAuthenticated: ", isAuthenticated);
+		// console.log("isLoadedUserData: ", isLoadedUserData);
 
 		if (isAuthenticated && !isLoadedUserData) return dispatch(fetchUserData());
 	}, [isLoadedUserData, dispatch, isAuthenticated]);

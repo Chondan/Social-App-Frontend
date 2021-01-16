@@ -68,10 +68,11 @@ const fetchUnlikeScream = createAsyncThunk(
 
 const fetchDeleteScream = createAsyncThunk(
 	`scream/fetchDeleteScream`,
-	async (screamId, { rejectWithValue }) => {
+	async ({ screamId, needToReload }, { rejectWithValue }) => {
 		try {
 			const response = await axios({ method: 'delete', url: `/scream/${screamId}`, headers: { ...getAuthorizationHeader() } });
 			console.log(response.data);
+			if (needToReload) window.location.href = `/scream/${screamId}`;
 			return screamId;
 		} catch(err) {
 			console.log(err);

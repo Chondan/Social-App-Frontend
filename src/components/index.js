@@ -1,5 +1,5 @@
 export { default as Navbar } from './Navbar';
-export { default as Scream } from './Scream';
+export { default as Scream, ScreamList } from './Scream';
 export { default as AuthRoute } from './AuthRoute';
 export { default as AnimationMessage } from './AnimationMessage';
 export { default as ProfileIcon } from './ProfileIcon';
@@ -12,3 +12,4 @@ export { default as ProfileLoadingSkeleton } from './loadingSkeletons/ProfileLoa
 export { default as ScreamLoadingSkeleton } from './loadingSkeletons/ScreamLoadingSkeleton';
 export { default as CommentLoadingSkeleton } from './loadingSkeletons/CommentLoadingSkeleton';
 export { default as LikeButton } from './LikeButton';
+export { default as Notifications } from './Notifications';
