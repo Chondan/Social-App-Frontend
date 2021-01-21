@@ -5,8 +5,11 @@ import { Home, Login, SignUp, Profile, Post } from './pages';
 import { Navbar, AuthRoute } from './components';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { theme as themeObj } from './utils/theme';
+import axios from 'axios';
 
 const theme = createMuiTheme(themeObj);
+
+axios.defaults.baseURL = "https://us-central1-social-media-app-a3e4f.cloudfunctions.net/api";
 
 const App = () => {
 	return (

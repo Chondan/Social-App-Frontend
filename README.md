@@ -54,5 +54,6 @@
 - [x] center the text of notifications badge
 - [x] fixed the display of notifications on mobile view
 - [x] fixed a problem when deleted a scream on its own post
+- [ ] automatically show and load comments when user navigate to a post
 
 VIDEO: 9:19:00
